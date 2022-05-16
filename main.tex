@@ -194,7 +194,7 @@ calc.out: calc.l calc.y arena_ast.h
 		cc -o $@ calc.tab.c lex.yy.c arena_ast.c arena.c
 \end{minted}
 
-и запустить. –езультат работы программы представлен на рис\ref{pic:6}. 
+и запустить. –езультат работы программы представлен на рис. \ref{pic:6}. 
 
 \begin{figure}[h]
 \centering
@@ -212,6 +212,14 @@ calc.out: calc.l calc.y arena_ast.h
 библиотеки \texttt{subprocess}. ѕолучим следующий код:
 
 \inputminted{python}{test.py}
+
+ роме того, отметим, что в ранее написанные программы были внесены некоторые изменени€ дл€ проведени€ эксперимента. ќзнакомитьс€ с ними
+можно в приложении \ref{app:A}.
+
+ќзнакомитьс€ с полным исходным кодом программы, осуществл€ющей
+исследование производительности можно в приложении \ref{app:B}.
+
+
 
 \conclusion
 
@@ -236,5 +244,15 @@ calc.out: calc.l calc.y arena_ast.h
 \subitem{\textbf{ѕапка} \texttt{arena} Ч реализаци€ с ј—ƒ на основе региона}
 
 \end{itemize}
+
+\section{»сходный код программы на Python, осуществл€ющей исследование
+производительности полученных реализаций}\label{app:B}
+
+\inputminted{python}{test.py}
+
+\section{»сходный код программы на Python, осуществл€ющей анализ
+полученных результатов}\label{app:C}
+
+\inputminted{python}{graph.py}
 
 \end{document}

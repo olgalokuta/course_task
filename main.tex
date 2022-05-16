@@ -31,8 +31,9 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{minted}
-\setminted[cpp]{breaklines=true, style=bw, linenos}
-\setminted[python]{breaklines=true, style=bw, linenos}
+\setminted[cpp]{fontsize=\small,breaklines=true, style=bw, linenos}
+\setminted[c]{fontsize=\small,breaklines=true, style=bw, linenos}
+\setminted[python]{fontsize=\small,breaklines=true, style=bw, linenos}
 \usepackage[english,russian]{babel}
 \usepackage{tempora}
 
@@ -113,7 +114,7 @@
  
  4.4.4 Инициализация
  
- Теперь определим функцию \mintinline{cpp}{arena_construct}, выполняющую начальную
+ Теперь определим функцию \mintinline[fontsize = \normalsize]{cpp}{arena_construct}, выполняющую начальную
  инициализацию состояния региона:
  
  \begin{minted}{cpp}
@@ -134,7 +135,7 @@ int arena_construct (arena* arena) {
 4.4.5 Выделение памяти
 
 После выделения некоторого объема памяти возможно обращение к ней.
-Определим это обращение с помощью функции \mintinline{cpp}{arena_allocate}:
+Определим это обращение с помощью функции \mintinline[fontsize = \normalsize]{cpp}{arena_allocate}:
 
 \begin{minted}{cpp}
 int arena_allocate (arena* arena, unsigned int count) {
@@ -160,12 +161,12 @@ int arena_allocate (arena* arena, unsigned int count) {
 }
 \end{minted}
 
-Отметим, что наиболее часто значением \mintinline{cpp}{MULTIPLY_FACTOR} оказывается числа
+Отметим, что наиболее часто значением \mintinline[fontsize = \normalsize]{cpp}{MULTIPLY_FACTOR} оказывается числа
 1:5 и 2. Это позволяет достичь амортизационно константного времени выполнения операции выделения памяти \cite{FBOS}.
 
 4.4.6 Освобождение выделенной памяти
 
-Наконец, реализуем освобождение выделенной региону памяти с помощью функции \mintinline{cpp}{arena_free}
+Наконец, реализуем освобождение выделенной региону памяти с помощью функции \mintinline[fontsize = \normalsize]{cpp}{arena_free}
 
 \begin{minted}{cpp}
 void arena_free (arena* arena) {
@@ -178,13 +179,13 @@ void arena_free (arena* arena) {
 4.4.7 Модификация абстрактного синтаксического дерева
 
 Осталось изменить исходный код программы, чтобы обеспечить выделение памяти с помощью полученной нами структуры данных.
-Для этого воспользуемся директивой \mintinline{cpp}{%param} и заявим в качестве параметра переменную типа \mintinline{cpp}{arena*}. В функциях \mintinline{cpp}{eval, newnum, newast} внесем изменения, чтобы обеспечить выделение памятью с помощью написанных ранее
+Для этого воспользуемся директивой \mintinline[fontsize = \normalsize]{cpp}{%param} и заявим в качестве параметра переменную типа \mintinline[fontsize = \normalsize]{cpp}{arena*}. В функциях \mintinline[fontsize = \normalsize]{cpp}{eval, newnum, newast} внесем изменения, чтобы обеспечить выделение памятью с помощью написанных ранее
 функций.
 С полным кодом программы можно ознакомиться в приложении \ref{app:A}. 
 
 4.4.8 Сборка проекта
 
-Теперь проект можно собрать, незначительно изменив \mintinline{c}{Makefile}:
+Теперь проект можно собрать, незначительно изменив \texttt{Makefile}:
 
 \begin{minted}{cpp}
 calc.out: calc.l calc.y arena_ast.h
@@ -201,6 +202,18 @@ calc.out: calc.l calc.y arena_ast.h
 \caption{Демонстрация работы программы}
 \label{pic:6}
 \end{figure}
+
+\section*{5 Сравнение полученных реализаций}
+
+Проведем анализ производительности полученных версий анализатора. В
+качестве данных для тестирования возьмем выражения вида $\underbrace{2+2+2\dots+2}_n$ 
+для $n = 1 \dots 100$ с шагом 1. Для вычисления времени выполнения воспользуемся библиотекой
+\texttt{time} Python 3.9.5. Автоматизацию обеспечим с помощью
+библиотеки \texttt{subprocess}. Получим следующий код:
+
+\inputminted{python}{test.py}
+
+\conclusion
 
 \bibliographystyle{gost780uv}
 \bibliography{thesis}
